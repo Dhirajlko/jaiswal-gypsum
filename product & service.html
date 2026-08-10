@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Product & Service Catalogue — Jaiswal Gypsum Lucknow, Kanpur</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <style>
+        /* ============================================================
+                   ROOT & RESET
+                   ============================================================ */
+        :root {
+            --plaster: #F6F2E8;
+            --plaster-deep: #EFE8D8;
+            --ink: #28241E;
+            --brass: #B07C33;
+            --brass-deep: #8F6224;
+            --brass-light: #D9A85F;
+            --line: #D9CFB6;
+            --white: #FFFDF8;
+            --shadow-sm: 0 4px 14px rgba(40, 36, 30, .08);
+            --shadow-md: 0 12px 40px -12px rgba(40, 36, 30, .25);
+            --radius: 6px;
+            --transition: .3s cubic-bezier(.25, .46, .45, .94);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Work Sans', sans-serif; background: var(--plaster); color: var(--ink); overflow-x: hidden; line-height: 1.5; }
+
+        /* WELCOME AUDIO OVERLAY */
+        .audio-welcome-overlay {
+            position: fixed; inset: 0; z-index: 99999;
+            background: rgba(24, 21, 17, 0.94); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            display: flex; align-items: center; justify-content: center; padding: 20px; text-align: center; color: var(--plaster); cursor: pointer; transition: opacity 0.5s ease;
+        }
+        .audio-welcome-overlay.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+        .welcome-card { background: rgba(40, 36, 30, 0.95); border: 2px solid var(--brass); padding: 40px 30px; border-radius: 12px; max-width: 500px; box-shadow: 0 20px 50px rgba(0,0,0,0.6); }
+        .welcome-icon { font-size: 3rem; color: var(--brass-light); margin-bottom: 16px; }
+        .welcome-card h2 { font-size: 1.8rem; color: var(--plaster); margin-bottom: 10px; font-family: 'Fraunces', serif; }
+        .welcome-card p { font-size: 0.95rem; color: #C9C2AF; margin-bottom: 24px; }
+        .welcome-start-btn { background: linear-gradient(135deg, var(--brass) 0%, var(--brass-deep) 100%); color: #fff; border: none; padding: 16px 36px; font-size: 1.1rem; font-weight: 700; border-radius: 50px; cursor: pointer; display: inline-flex; align-items: center; gap: 10px; }
+
+        /* AUTOPLAY AUDIO BANNER */
+        .autoplay-banner { background: linear-gradient(90deg, #1D1A15 0%, #28241E 100%); border-bottom: 2px solid var(--brass); padding: 10px 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px; color: var(--plaster); font-size: .85rem; z-index: 99; position: sticky; top: 0; }
+        .audio-status { display: flex; align-items: center; gap: 12px; }
+        .soundwave { display: flex; align-items: flex-end; gap: 3px; height: 18px; }
+        .soundwave span { width: 3px; height: 4px; background: var(--brass-light); border-radius: 2px; }
+        .soundwave.active span { animation: wave 1s infinite alternate; }
+        @keyframes wave { 0% { height: 4px; } 100% { height: 18px; } }
+        .audio-btn-pill { background: var(--brass); color: #1D1A15; border: none; padding: 6px 14px; border-radius: 20px; font-weight: 700; font-size: .75rem; cursor: pointer; }
+
+        /* TOP BAR & HEADER */
+        .topbar { background: var(--ink); color: var(--plaster); font-family: 'IBM Plex Mono', monospace; font-size: .72rem; padding: 10px 24px; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; border-bottom: 1px solid rgba(176, 124, 51, .2); }
+        .topbar a { color: var(--brass-light); font-weight: 600; text-decoration: underline; }
+
+        header { display: flex; justify-content: space-between; align-items: center; padding: 14px 44px; background: rgba(246, 242, 232, .96); border-bottom: 1px solid var(--line); position: sticky; top: 41px; z-index: 98; }
+        .logo-wrap { display: flex; align-items: center; gap: 14px; }
+        .logo-img { height: 56px; width: auto; object-fit: contain; }
+        .logo-text { font-family: 'Fraunces', serif; font-size: 1.5rem; font-weight: 700; color: var(--ink); }
+        .logo-text em { color: var(--brass-deep); font-style: normal; }
+
+        nav { display: flex; gap: 24px; align-items: center; }
+        nav a { font-weight: 600; font-size: .92rem; color: var(--ink); text-decoration: none; padding-bottom: 4px; }
+        nav a.active { color: var(--brass-deep); border-bottom: 2px solid var(--brass); }
+        .nav-cta { background: var(--ink); color: var(--plaster) !important; padding: 10px 22px; border-radius: var(--radius); }
+
+        /* PAGE HERO BANNER */
+        .page-hero {
+            background: linear-gradient(135deg, #1D1A15 0%, #28241E 100%);
+            color: var(--plaster);
+            padding: 64px 44px 48px;
+            text-align: center;
+            border-bottom: 3px solid var(--brass);
+        }
+
+        .page-hero h1 {
+            font-family: 'Fraunces', serif;
+            font-size: 3.4rem;
+            margin-bottom: 12px;
+            color: var(--plaster);
+        }
+
+        .page-hero h1 em {
+            color: var(--brass-light);
+            font-style: italic;
+        }
+
+        .page-hero p {
+            max-width: 680px;
+            margin: 0 auto;
+            color: #C9C2AF;
+            font-size: 1.1rem;
+        }
+
+        /* FILTER TABS */
+        .category-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 28px;
+            flex-wrap: wrap;
+        }
+
+        .cat-tab {
+            background: rgba(255, 253, 248, 0.1);
+            color: var(--plaster);
+            border: 1px solid rgba(217, 207, 182, 0.3);
+            padding: 8px 18px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .cat-tab:hover, .cat-tab.active {
+            background: var(--brass);
+            color: #1D1A15;
+            border-color: var(--brass);
+        }
+
+        /* PRODUCT CATALOG SECTIONS */
+        .catalog-container { max-width: 1360px; margin: 0 auto; padding: 60px 44px; }
+        
+        .section-title {
+            font-family: 'Fraunces', serif;
+            font-size: 2rem;
+            color: var(--ink);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-title i { color: var(--brass-deep); font-size: 1.6rem; }
+
+        .section-subtitle {
+            color: #6a6250;
+            font-size: 0.95rem;
+            margin-bottom: 32px;
+            border-bottom: 2px solid var(--line);
+            padding-bottom: 12px;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+            margin-bottom: 64px;
+        }
+
+        .product-card {
+            background: var(--white);
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--brass);
+        }
+
+        .product-img-wrap {
+            height: 240px;
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+            background: #EFE8D8;
+        }
+
+        .product-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover .product-img-wrap img { transform: scale(1.08); }
+
+        .product-badge {
+            position: absolute; top: 12px; left: 12px;
+            background: var(--brass); color: #fff;
+            font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; font-weight: 700;
+            padding: 4px 10px; border-radius: 4px; text-transform: uppercase;
+        }
+
+        .product-content { padding: 24px; display: flex; flex-direction: column; flex-grow: 1; }
+        .product-content h3 { font-size: 1.3rem; margin-bottom: 10px; font-family: 'Fraunces', serif; color: var(--ink); }
+        .product-content p { font-size: 0.9rem; color: #5a5344; line-height: 1.6; margin-bottom: 18px; flex-grow: 1; }
+
+        .product-features { list-style: none; margin-bottom: 20px; padding-top: 12px; border-top: 1px dashed var(--line); }
+        .product-features li { font-size: 0.85rem; color: var(--ink); display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+        .product-features li i { color: var(--brass); }
+
+        .product-inquire-btn {
+            background: #25D366; color: #fff; border: none; padding: 12px 18px; border-radius: 4px;
+            font-weight: 700; font-size: 0.88rem; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px;
+            box-shadow: 0 4px 0 #1a9e4e; transition: transform 0.2s;
+        }
+        .product-inquire-btn:hover { transform: translateY(2px); background: #2ee073; }
+
+        /* MODAL & FABs */
+        .modal-overlay { position: fixed; inset: 0; z-index: 1000; background: rgba(0, 0, 0, .55); display: none; align-items: center; justify-content: center; padding: 20px; }
+        .modal-overlay.active { display: flex; }
+        .modal-box { background: var(--white); max-width: 580px; width: 100%; padding: 40px 36px; border-radius: var(--radius); position: relative; }
+        .modal-close { position: absolute; top: 14px; right: 18px; background: none; border: none; font-size: 1.6rem; cursor: pointer; }
+        .btn-whatsapp-submit { background: #25D366; color: #fff; border: none; padding: 15px 28px; font-weight: 600; width: 100%; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; }
+
+        .quote-fab { position: fixed; bottom: 100px; right: 28px; z-index: 97; background: var(--brass); color: #fff; border: none; border-radius: 50px; padding: 12px 22px; cursor: pointer; display: flex; align-items: center; gap: 8px; }
+        .whatsapp { position: fixed; bottom: 28px; right: 28px; background: #25D366; width: 58px; height: 58px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 96; }
+        .whatsapp svg { width: 28px; height: 28px; fill: white; }
+
+        footer { background: var(--ink); color: #a89e88; text-align: center; padding: 34px 20px; font-family: 'IBM Plex Mono', monospace; font-size: .74rem; border-top: 2px solid var(--brass); }
+
+        @media (max-width: 900px) {
+            .product-grid { grid-template-columns: 1fr; }
+            .catalog-container { padding: 40px 20px; }
+            header { padding: 12px 20px; top: 0; }
+            .page-hero h1 { font-size: 2.4rem; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- AUDIO UNLOCK OVERLAY -->
+    <div class="audio-welcome-overlay" id="audioWelcomeOverlay">
+        <div class="welcome-card">
+            <div class="welcome-icon"><i class="fa-solid fa-boxes-packing"></i></div>
+            <h2>Jaiswal Gypsum Catalogue</h2>
+            <p>Listen to Hindi Audio Guide &amp; View Official Materials</p>
+            <button class="welcome-start-btn"><i class="fa-solid fa-play"></i> Open Catalogue &amp; Listen</button>
+        </div>
+    </div>
+
+    <!-- AUDIO PLAYER -->
+    <audio id="bgAudio" loop preload="auto">
+        <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- AUDIO BANNER -->
+    <div class="autoplay-banner">
+        <div class="audio-status">
+            <div class="soundwave" id="waveBar"><span></span><span></span><span></span><span></span></div>
+            <span><strong>🔊 Jaiswal Gypsum Audio Guide:</strong> <span id="speechText">Namaskar! Jaiswal Gypsum ke Product &amp; Service Catalogue mein aapka swagat hai...</span></span>
+        </div>
+        <button class="audio-btn-pill" id="toggleAudioBtn"><i class="fa-solid fa-volume-high"></i> <span id="toggleAudioTxt">Play Voice</span></button>
+    </div>
+
+    <!-- TOP BAR WITH ALL THREE PHONE NUMBERS -->
+    <div class="topbar">
+        <span><b>Call —</b> <a href="tel:+919616417285">+91 96164 17285</a> &nbsp;|&nbsp; <a href="tel:+919538596486">+91 95385 96486</a> &nbsp;|&nbsp; <a href="tel:+919066417285">+91 90664 17285</a></span>
+        <span><b>Serving —</b> Lucknow &amp; Kanpur</span>
+    </div>
+
+    <!-- HEADER NAVIGATION -->
+    <header id="header">
+        <div class="logo-wrap">
+            <a href="index.html" style="display:flex; align-items:center; gap:14px; text-decoration:none;">
+                <img src="LOGO.jpeg" alt="Jaiswal Gypsum" class="logo-img" onerror="this.src='https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=100&auto=format';" />
+                <span class="logo-text">Jaiswal <em>Gypsum</em></span>
+            </a>
+        </div>
+        <nav id="mainNav">
+            <a href="index.html">Home</a>
+            <a href="product-service.html" class="active">PRODUCT &amp; SERVICE</a>
+            <a href="index.html#process">Process</a>
+            <a href="index.html#work">Work</a>
+            <a href="index.html#contact">Contact</a>
+            <a href="javascript:void(0)" class="nav-cta" id="navQuoteBtn">Get a Quote</a>
+        </nav>
+    </header>
+
+    <!-- PAGE HERO BANNER -->
+    <section class="page-hero">
+        <h1>PRODUCT &amp; <em>SERVICE</em></h1>
+        <p>Complete Range of Original Gypsum Materials, Heavy Channels, Drywall Screws, POP Cornices &amp; On-Site Ceiling Installations across Lucknow &amp; Kanpur.</p>
+        
+        <div class="category-tabs">
+            <a href="#plaster" class="cat-tab active">Gypsum Plaster &amp; Bags</a>
+            <a href="#framing" class="cat-tab">GI Framing &amp; Channels</a>
+            <a href="#fasteners" class="cat-tab">Screws &amp; Fasteners</a>
+            <a href="#mouldings" class="cat-tab">POP Mouldings &amp; Tiles</a>
+            <a href="#projects" class="cat-tab">On-Site Installations</a>
+        </div>
+    </section>
+
+    <!-- FULL CATALOGUE WITH REAL CLIENT IMAGES -->
+    <div class="catalog-container">
+
+        <!-- CATEGORY 1: GYPSUM PLASTER -->
+        <div id="plaster">
+            <h2 class="section-title"><i class="fa-solid fa-cubes-stacked"></i> 1. Goldmax &amp; Gypsum Plaster Bags</h2>
+            <p class="section-subtitle">One-coat smooth plaster finish for direct brick &amp; block walls eliminating sand-cement plastering.</p>
+
+            <div class="product-grid">
+                <!-- PRODUCT 1 -->
+                <div class="product-card">
+                    <div class="product-img-wrap">
+                        <img src="images/13_Goldmax_Gypsum_Plaster_One_Coat.jpeg" alt="Goldmax Gypsum Plaster One Coat">
+                        <span class="product-badge">Goldmax Original</span>
+                    </div>
+                    <div class="product-content">
+                        <h3>Goldmax One-Coat Gypsum Plaster</h3>
+                        <p>Premium grade ready-mix Gypsum plaster bag for ultra-smooth wall surface application with high coverage.</p>
+                        <ul class="product-features">
+                            <li><i class="fa-solid fa-check"></i> High Thermal &amp; Fire Resistance</li>
+                            <li><i class="fa-solid fa-check"></i> Zero Shrinkage Cracks</li>
+                        </ul>
+                        <a href="https://wa.me/919616417285?text=I%20need%20a%20quote%20for%20Goldmax%20Gypsum%20Plaster%20Bags" target="_blank" class="product-inquire-btn">
+                            <i class="fa-brands fa-whatsapp"></i> Inquire Price on WhatsApp
+                        </a>
+                    </div>
+                </div>
+
+                <!-- PRODUCT 2 -->
+                <div class="product-card">
+                    <div class="product-img-wrap">
+                        <img src="images/08_Gypsum_Plaster_Bags.jpeg" alt="Gypsum Plaster Storage Warehouse">
+                        <span class="product-badge">Wholesale Stock</span>
+                    </div>
+                    <div class="product-content">
+                        <h3>Jaiswal Gypsum Plaster Bags</h3>
+                        <p>Fresh stock of heavy-duty Gypsum plaster bags available for immediate site delivery in Lucknow &amp; Kanpur.</p>
+                        <ul class="product-features">
+                            <li><i class="fa-solid fa-check"></i> Bulk Order Wholesale Rates</li>
+                            <li><i class="fa-solid fa-check"></i> Direct Site Transportation</li>
+                        </ul>
+                        <a href="https://wa.me/919538596486?text=I%20want%20wholesale%20rates%20for%20Gypsum%20Plaster%20Bags" target="_blank" class="product-inquire-btn">
+                            <i class="fa-brands fa-whatsapp"></i> Inquire Price on WhatsApp
+                        </a>
+                    </div>
+                </div>
+
+                <!-- PRODUCT 3 -->
+                <div class="product-card">
+                    <div class="product-img-wrap">
+                        <img src="images/goldmax-gypsum-plaster-one-coat-test-panel.jpeg" alt="One Coat Plaster Test Panel">
+                        <span class="product-badge">Smooth Finish</span>
+                    </div>
+                    <div class="product-content">
+                        <h3>Finished Wall Plaster Panel</h3>
+                        <p>Direct plaster application sample showing mirror-smooth finish over brick &amp; AAC block masonry.</p>
+                        <ul class="product-features">
+                            <li><i class="fa-solid fa-check"></i> Paint Ready Without POP Punni</li>
+                            <li><i class="fa-solid fa-check"></i> Lightweight Structural Load</li>
+                        </ul>
+                        <a href="https://wa.me/919066417285?text=I%20want%20site%20demo%20for%20Gypsum%20Plaster" target="_blank" class="product-inquire-btn">
+                            <i class="fa-brands fa-whatsapp"></i> Request Site Demo
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CATEGORY 2: METAL FRAMING & CHANNELS -->
+        <div id="framing">
+            <h2 class="section-title"><i class="fa-solid fa-layer-group"></i> 2. GI Metal Framing &amp; Channels</h2>
+            <p class="section-subtitle">Galvanized Iron main channels, perimeter channels, ceiling sections, and PVC profile tracks.</p>
+
+            <div class="product-grid">
+                <!-- PRODUCT 4 -->
+                <div class="product-card">
+                    <div class="product-img-wrap">
+                        <img src="images/03_GI_Metal_Framing_Channels.jpeg" alt="GI Metal Framing Channels">
+                        <span class="product-badge">GI Galvanized</span>
+                    </div>
+                    <div class="product-content">
+                        <h3>GI Main &amp; Perimeter Channels</h3>
+                        <p>High rust-proof zinc coated steel framing channels for false ceiling support grid installation.</p>
+                        <ul class="product-features">
+                            <li><i class="fa-solid fa-check"></i> Heavy Gauge Steel Strength</li>
+                            <li><i class="fa-solid fa-check"></i> Standard 12ft &amp; 10ft Lengths</li>
+                        </ul>
+                        <a href="https://wa.me/919616417285?text=I%20need%20quote%20for%20GI%20Metal%20Framing%20Channels" target="_blank" class="product-inquire-btn">
+                            <i class="fa-brands fa-whatsapp"></i> Inquire Price on WhatsApp
+                        </a>
+                    </div>
+                </div>
+
+                <!-- PRODUCT 5 -->
+                <div class="product-card">
+                    <div class="product-img-wrap">
+                        <img src="images/09_GI_Gypsum_Framing_Channels.jpeg" alt="GI Gypsum Framing Channels">
+                        <span class="product-badge">Heavy Duty</span>
+                    </div>
+                    <div class="product-content">
+                        <h3>GI Ceiling Section Channels</h3>
+                        <p>Precision engineered ceiling sections designed for seamless Gyproc and Saint-Gobain board screwing.</p>
+                        <ul class="product-features">
+                            <li><i class="fa-solid fa-check"></i> Anti-Rust Zinc Protection</li>
+                            <li><i class="fa-solid fa-check"></i> High Load Capacity</li>
+                        </ul>
+                        <a href="https://wa.me/919538596486?text=I%20need%20GI%20Ceiling%20Section%20Channels" target="_blank" class="product-inquire-btn">
+                            <i class="fa-brands fa-whatsapp"></i> Inquire Price on WhatsApp
+                        </a>
+                    </div>
+                </div>
+
+                <!-- PRODUCT 6 -->
+                <div class="product-card">
+                    <div class="product-img-wrap">
+                        <img src="images/05_PVC_False_Ceiling_Profile.jpeg" alt="PVC False Ceiling Profile">
+                        <span class="product-badge">PVC Profile</span>
+                    </div>
+                    <div class="product-content">
+                        <h3>PVC False Ceiling Profiles</h3>
+                        <p>Waterproof edge trim &amp; jointing profile channels for PVC and modular ceiling installations.</p>
+                        <ul class="product-features">
+                            <li><i class="fa-solid fa-check"></i> 100% Water Resistant</li>
+                            <li><i class="fa-solid fa-check"></i> Clean Border Edge Finish</li>
+                        </ul>
+                        <a href="https://wa.me/919066417285?text=I%20need%20PVC%20False%20Ceiling%20Profiles" target="_blank" class="product-inquire-btn">
+                            <i class="fa-brands fa-whatsapp"></i> Inquire Price on WhatsApp
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CATEGORY 3: SCREWS & FASTENERS -->
+        <div id="fasteners">
+            <h2 class="section-title"><i class="fa-solid fa-screwdriver-wrench"></i> 3. Screws, Fasteners &amp; Anchors</h2>
+            <p class="section-subtitle">Black phosphated drywall screws, star coin screws, L-brackets, expansion bolts &amp; nylon wall plugs.</p>
+
+            <div class="product-grid">
+                <!-- PRODUCT 7 -->
+                <div class="product-card">
+                    <div class="product-img-wrap">
+                        <img src="images/02_Drywall_Screws.jpeg" alt="Drywall Screws">
+                        <span class="product-badge">Black Phosphated</span>
+                    </div>
+                    <div class="product-content">
+                        <h3>Gypsum Drywall Screws (Bugle Head)</h3>
+                        <p>Sharp-point bugle head black phosphate coated screws for tight fixing of Gypsum boards into GI channels.</p>
+                        <ul class="product-features">
+                            <li><i class="fa-solid fa-check"></i> 25mm, 35mm, 50mm Sizes</li>
+                            <li><i class="fa-solid fa-check"></i> Anti-Corrosive Coating</li>
+                        </ul>
+                        <a href="https://wa.me/919616417285?text=I%20need%20Drywall%20Screws%20in%20bulk" target="_blank" class="product-inquire-btn">
+                            <i class="fa-brands fa-whatsapp"></i> Inquire Bulk Rate
+                        </a>
+                    </div>
+                </div>
+
+                <!-- PRODUCT 8 -->
+                <div class="product-card">
+                    <div class="product-img-wrap">
+                        <img src="images/19_Star_Coin_Drywall_Screws.jpeg" alt="Star Coin Drywall Screws">
+                        <span class="product-badge">Star Coin Original</span>
+                    </div>
+                    <div class="product-content">
+                        <h3>Star Coin Premium Drywall Screws</h3>
+                        <p>Original Star Coin brand high-penetration drywall screws packaged in heavy 1000-pc boxes.</p>
+                        <ul class="product-features">
+                            <li><i class="fa-solid fa-check"></i> High Tensile Steel</li>
+                            <li><i class="fa-solid fa-check"></i> Zero Screw Head Slippage</li>
+                        </ul>
+                        <a href="https://wa.me/919538596486?text=I%20need%20Star%20Coin%20Drywall%20Screws" target="_blank" class="product-inquire-btn">
+                            <i class="fa-brands fa-whatsapp"></i> Inquire Bulk Rate
+                        </a>
+                    </div>
+                </div>
+
+                <!-- PRODUCT 9 -->
+                <div class="product-card">
+                    <div class="product-img-wrap">
+                        <img src="images/04_GI_L_Angle_Bracket_with_Bolt_Nut.jpeg" alt="GI L-Angle Bracket Bolt Nut">
+                        <span class="product-badge">Fasteners</span>
+                    </div>
+                    <div class="product-content">
+                        <h3>GI L-Angle Brackets with Bolt Nut</h3>
+                        <p>Heavy duty galvanized steel L-brackets with anchor bolts for connecting ceiling wire soffits to slab concrete.</p>
+                        <ul class="product-features">
+                            <li><i class="fa-solid fa-check"></i> Heavy Weight Bearing</li>
+                            <li><i class="fa-solid fa-check"></i> Includes Bolts &amp; Nuts</li>
+                        </ul>
+                        <a href="https://wa.me/919066417285?text=I%20need%20GI%20L-Angle%20Brackets" target="_blank" class="product-inquire-btn">
+                            <i class="fa-brands fa-whatsapp"></i> Inquire Price on WhatsApp
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CATEGORY 4: POP MOULDINGS & TILES -->
+        <div id="mouldings">
+            <h2 class="section-title"><i class="fa-solid fa-vihara"></i> 4. POP Cornices &amp; Decorative Ceiling Tiles</h2>
+            <p class="section-subtitle">Intricate Plaster of Paris cornices, ceiling roses, floral borders, and acoustic 2x2 tiles.</p>
+
+            <div class="product-grid">
+                <!-- PRODUCT 10 -->
+                <div class="product-card">
+                    <div class="product-img-wrap">
+                        <img src="images/17_Gypsum_Decorative_Cornice_Moulding.jpeg" alt="Gypsum Decorative Cornice Moulding">
+                        <span class="product-badge">Hand Crafted</span>
+                    </div>
+                    <div class="product-content">
+                        <h3>POP Decorative Cornice Moulding</h3>
+                        <p>Classic Victorian and modern step POP cornice moldings for elegant room borders.</p>
+                        <ul class="product-features">
+                            <li><i class="fa-solid fa-check"></i> Sharp Mould Details</li>
+                            <li><i class="fa-solid fa-check"></i> Custom Length Casting</li>
+                        </ul>
+                        <a href="https://wa.me/919616417285?text=I%20need%20POP%20Decorative%20Cornice%20Mouldings" target="_blank" class="product-inquire-btn">
+                            <i class="fa-brands fa-whatsapp"></i> Inquire Price on WhatsApp
+                        </a>
+                    </div>
+                </div>
+
+                <!-- PRODUCT 11 -->
+                <div class="product-card">
+                    <div class="product-img-wrap">
+                        <img src="images/20_Gypsum_Decorative_Ceiling_Tile.jpeg" alt="Gypsum Decorative Ceiling Tile">
+                        <span class="product-badge">Ceiling Tiles</span>
+                    </div>
+                    <div class="product-content">
+                        <h3>Gypsum Decorative Ceiling Tile 2x2</h3>
+                        <p>Embossed patterned 600x600mm Gypsum ceiling tiles for suspended grid systems.</p>
+                        <ul class="product-features">
+                            <li><i class="fa-solid fa-check"></i> Sag Resistant Surface</li>
+                            <li><i class="fa-solid fa-check"></i> Easy Wipe Clean Finish</li>
+                        </ul>
+                        <a href="https://wa.me/919538596486?text=I%20need%20Gypsum%20Decorative%20Ceiling%20Tiles" target="_blank" class="product-inquire-btn">
+                            <i class="fa-brands fa-whatsapp"></i> Inquire Price on WhatsApp
+                        </a>
+                    </div>
+                </div>
+
+                <!-- PRODUCT 12 -->
+                <div class="product-card">
+                    <div class="product-img-wrap">
+                        <img src="images/jaiswal-gypsum-decorative-pop-ceiling-design.jpeg" alt="Decorative POP Ceiling Design">
+                        <span class="product-badge">Design Execution</span>
+                    </div>
+                    <div class="product-content">
+                        <h3>Designer Living Room POP Ceiling</h3>
+                        <p>Custom multi-layer POP ceiling work executed with ambient cove lighting slots.</p>
+                        <ul class="product-features">
+                            <li><i class="fa-solid fa-check"></i> Custom On-Site Casting</li>
+                            <li><i class="fa-solid fa-check"></i> Premium Paint Coating</li>
+                        </ul>
+                        <a href="https://wa.me/919066417285?text=I%20want%20a%20quote%20for%20Designer%20POP%20Ceiling" target="_blank" class="product-inquire-btn">
+                            <i class="fa-brands fa-whatsapp"></i> Inquire Price on WhatsApp
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CATEGORY 5: ON-SITE PROJECTS -->
+        <div id="projects">
+            <h2 class="section-title"><i class="fa-solid fa-building-user"></i> 5. On-Site Commercial &amp; Residential Projects</h2>
+            <p class="section-subtitle">Snapshots of multi-storey construction projects, corridors, and ceiling installations across Lucknow &amp; Kanpur.</p>
+
+            <div class="product-grid">
+                <!-- PRODUCT 13 -->
+                <div class="product-card">
+                    <div class="product-img-wrap">
+                        <img src="images/jaiswal-gypsum-multi-storey-construction-project.jpeg" alt="Multi Storey Construction Project">
+                        <span class="product-badge">Commercial Project</span>
+                    </div>
+                    <div class="product-content">
+                        <h3>Multi-Storey Commercial Fit-Outs</h3>
+                        <p>Complete Gypsum plaster and false ceiling execution for commercial towers and office complexes.</p>
+                        <ul class="product-features">
+                            <li><i class="fa-solid fa-check"></i> 50,000+ sq.ft. Capacity</li>
+                            <li><i class="fa-solid fa-check"></i> Timely Site Completion</li>
+                        </ul>
+                        <a href="https://wa.me/919616417285?text=I%20have%20a%20Commercial%20Project%20for%20Gypsum%20Ceiling" target="_blank" class="product-inquire-btn">
+                            <i class="fa-brands fa-whatsapp"></i> Book Site Inspection
+                        </a>
+                    </div>
+                </div>
+
+                <!-- PRODUCT 14 -->
+                <div class="product-card">
+                    <div class="product-img-wrap">
+                        <img src="images/jaiswal-gypsum-corridor-plaster-work.jpeg" alt="Corridor Ceiling & Plaster Work">
+                        <span class="product-badge">Corridor Ceiling</span>
+                    </div>
+                    <div class="product-content">
+                        <h3>Corridor &amp; Lobby False Ceilings</h3>
+                        <p>Seamless long corridor Gypsum ceilings with recessed LED profile channels and spot cutouts.</p>
+                        <ul class="product-features">
+                            <li><i class="fa-solid fa-check"></i> Linear Profile Lighting Integration</li>
+                            <li><i class="fa-solid fa-check"></i> Perfect Level Alignment</li>
+                        </ul>
+                        <a href="https://wa.me/919538596486?text=I%20need%20Corridor%20Ceiling%20Installation" target="_blank" class="product-inquire-btn">
+                            <i class="fa-brands fa-whatsapp"></i> Book Site Inspection
+                        </a>
+                    </div>
+                </div>
+
+                <!-- PRODUCT 15 -->
+                <div class="product-card">
+                    <div class="product-img-wrap">
+                        <img src="images/jaiswal-gypsum-building-plaster-project.jpeg" alt="Building Plaster Project">
+                        <span class="product-badge">Interior Plaster</span>
+                    </div>
+                    <div class="product-content">
+                        <h3>Direct Gypsum Plastering Service</h3>
+                        <p>Professional team application of direct one-coat Gypsum plaster on internal brick walls.</p>
+                        <ul class="product-features">
+                            <li><i class="fa-solid fa-check"></i> Faster Than Cement Plaster</li>
+                            <li><i class="fa-solid fa-check"></i> Super Smooth Wall Surface</li>
+                        </ul>
+                        <a href="https://wa.me/919066417285?text=I%20need%20Gypsum%20Plastering%20Contractors" target="_blank" class="product-inquire-btn">
+                            <i class="fa-brands fa-whatsapp"></i> Book Site Inspection
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- MODAL & FABs -->
+    <div class="modal-overlay" id="quoteModal">
+        <div class="modal-box">
+            <button class="modal-close" id="modalClose">✕</button>
+            <h2>Get a Quote</h2>
+            <form id="quoteForm">
+                <div class="field"><label>Name *</label><input type="text" id="qName" required></div>
+                <div class="field"><label>Mobile *</label><input type="tel" id="qMobile" required></div>
+                <div class="field"><label>City</label><select id="qCity"><option>Lucknow</option><option>Kanpur</option></select></div>
+                <div class="field"><label>Product / Area *</label><input type="text" id="qArea" required></div>
+                <button type="submit" class="btn-whatsapp-submit">Send on WhatsApp</button>
+            </form>
+        </div>
+    </div>
+
+    <button class="quote-fab" id="quoteFab">Get Quote</button>
+    <a href="https://wa.me/919616417285" class="whatsapp" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.87.5 3.62 1.44 5.15L2 22l5.09-1.53a9.87 9.87 0 004.95 1.33h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.83 9.83 0 0012.04 2m5.79 14.06c-.24.68-1.4 1.3-1.93 1.34-.5.05-1.02.27-3.43-.72-2.9-1.2-4.76-4.14-4.9-4.34-.14-.2-1.17-1.56-1.17-2.97 0-1.42.74-2.11 1-2.4.26-.28.57-.35.76-.35.19 0 .38 0 .55.01.18.01.42-.07.65.5.24.58.82 2 .89 2.14.07.14.12.31.02.5-.1.19-.15.31-.29.48-.14.16-.3.36-.43.49-.14.14-.3.3-.13.58.17.28.75 1.24 1.62 2.01 1.11.99 2.05 1.3 2.33 1.44.28.14.46.21.53.33.07.12.07.68-.17 1.36"/></svg></a>
+
+    <footer>
+        <p>© 2026 Jaiswal Gypsum — Lucknow &amp; Kanpur · 📞 <a href="tel:+919616417285" style="color:var(--brass-light);">+91 96164 17285</a> · <a href="tel:+919538596486" style="color:var(--brass-light);">+91 95385 96486</a> · <a href="tel:+919066417285" style="color:var(--brass-light);">+91 90664 17285</a> · Site by <b>Leo Computers</b></p>
+    </footer>
+
+    <script>
+        (function() {
+            'use strict';
+            const welcomeOverlay = document.getElementById('audioWelcomeOverlay');
+            const synth = window.speechSynthesis;
+            const bgAudio = document.getElementById('bgAudio');
+            const toggleAudioBtn = document.getElementById('toggleAudioBtn');
+            const toggleAudioTxt = document.getElementById('toggleAudioTxt');
+            const waveBar = document.getElementById('waveBar');
+            let isAudioSpeaking = false;
+
+            const welcomeMsg = "Namaskar! Jaiswal Gypsum ke Product aur Service Catalogue mein aapka swagat hai. Yahan aapko milenge Goldmax Gypsum plaster, GI Channels, Drywall Screws, aur POP Mouldings ke sabhi asli products aur site photos.";
+
+            function startAudioWithSound() {
+                if (welcomeOverlay) welcomeOverlay.classList.add('hidden');
+                if (bgAudio) { bgAudio.volume = 0.7; bgAudio.play().catch(console.error); }
+                if (synth) {
+                    synth.cancel();
+                    var utterance = new SpeechSynthesisUtterance(welcomeMsg);
+                    utterance.lang = 'hi-IN'; utterance.rate = 0.95;
+                    utterance.onstart = function() { isAudioSpeaking = true; if (waveBar) waveBar.classList.add('active'); if (toggleAudioTxt) toggleAudioTxt.innerText = "Pause Voice"; };
+                    utterance.onend = function() { isAudioSpeaking = false; if (waveBar) waveBar.classList.remove('active'); if (toggleAudioTxt) toggleAudioTxt.innerText = "Replay Voice"; };
+                    synth.speak(utterance);
+                }
+            }
+
+            if (welcomeOverlay) welcomeOverlay.onclick = startAudioWithSound;
+            document.addEventListener('click', startAudioWithSound, { once: true });
+
+            if (toggleAudioBtn) {
+                toggleAudioBtn.onclick = function(e) {
+                    e.stopPropagation();
+                    if (isAudioSpeaking || (bgAudio && !bgAudio.paused)) {
+                        synth.cancel(); if (bgAudio) bgAudio.pause(); isAudioSpeaking = false;
+                        if (waveBar) waveBar.classList.remove('active'); if (toggleAudioTxt) toggleAudioTxt.innerText = "Play Voice";
+                    } else { startAudioWithSound(); }
+                };
+            }
+
+            const modal = document.getElementById('quoteModal');
+            const modalClose = document.getElementById('modalClose');
+            const quoteFab = document.getElementById('quoteFab');
+            const navQuoteBtn = document.getElementById('navQuoteBtn');
+
+            function openModal() { modal.classList.add('active'); }
+            function closeModal() { modal.classList.remove('active'); }
+
+            if (quoteFab) quoteFab.onclick = openModal;
+            if (navQuoteBtn) navQuoteBtn.onclick = openModal;
+            if (modalClose) modalClose.onclick = closeModal;
+        })();
+    </script>
+</body>
+</html>
